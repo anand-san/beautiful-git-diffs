@@ -1,112 +1,227 @@
-import Image from "next/image";
+"use client";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import ReactDiffViewer, {
+  ReactDiffViewerStylesOverride,
+} from "react-diff-viewer";
+import Prism from "prismjs";
+import "../styles/prism.css";
+import {
+  CameraIcon,
+  MessageCircle,
+  MessageCircleOff,
+  MoonIcon,
+  SplitIcon,
+  SunIcon,
+  TreesIcon,
+} from "lucide-react";
+import { toPng } from "html-to-image";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
+  const [sourceCode, setSourceCode] = useState<string>("");
+  const [targetCode, setTargetCode] = useState<string>("");
+  const [editorDarkMode, setEditorDarkMode] = useState<boolean>(true);
+  const [editorSplitView, setEditorSplitView] = useState<boolean>(true);
+  const [showEditorHeader, setShowEditorHeader] = useState<boolean>(true);
+
+  const updateSourceCode = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setSourceCode(e.target.value);
+  };
+
+  const updateTargetCode = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTargetCode(e.target.value);
+  };
+
+  const toggleEditorDarkMode = () => {
+    setEditorDarkMode(!editorDarkMode);
+  };
+
+  const toggleSplitView = () => {
+    setEditorSplitView(!editorSplitView);
+  };
+
+  const toggleEditorHeader = () => {
+    setShowEditorHeader(!showEditorHeader);
+  };
+
+  const captureDiffImage = async () => {
+    const node = document.getElementById("diff-view") as HTMLElement;
+    const dataUrl = await toPng(node);
+    const link = document.createElement("a");
+    link.download = "diff.png";
+    link.href = dataUrl;
+    link.click();
+  };
+
+  const prismTest = (str: string) => {
+    if (!str) str = "";
+    return Prism.highlight(str, Prism.languages.javascript, "javascript");
+  };
+
+  const highlightSyntax = (str: string) => (
+    <pre
+      style={{ display: "inline" }}
+      dangerouslySetInnerHTML={{
+        __html: prismTest(str),
+      }}
+    />
+  );
+
+  const newStyles: ReactDiffViewerStylesOverride = {
+    variables: {
+      dark: {
+        wordAddedBackground: "#15803d",
+        wordRemovedBackground: "#991b1b",
+      },
+      light: {
+        // wordAddedBackground: "#15803d",
+        // wordRemovedBackground: "#991b1b",
+
+        //defaults
+        diffViewerBackground: "#fff",
+        addedBackground: "#e6ffed",
+        addedColor: "#24292e",
+        removedBackground: "#ffeef0",
+        removedColor: "#24292e",
+        wordAddedBackground: "#acf2bd",
+        wordRemovedBackground: "#fdb8c0",
+        addedGutterBackground: "#cdffd8",
+        removedGutterBackground: "#ffdce0",
+        gutterBackground: "#f7f7f7",
+        gutterBackgroundDark: "#f3f1f1",
+        highlightBackground: "#fffbdd",
+        highlightGutterBackground: "#fff5b1",
+        codeFoldGutterBackground: "#dbedff",
+        codeFoldBackground: "#f1f8ff",
+        emptyLineBackground: "#fafbfc",
+      },
+    },
+    line: {
+      padding: "10px 2px",
+      "&:hover": {
+        background: "#a26ea1",
+      },
+    },
+  };
+
+  const leftHeadingBar = <>Before</>;
+
+  const rightHeadingBar = <>After</>;
+
+  const sampleSourceCode = `export const OldCode = () => {
+    // Not so amazing code
+    // Change me
+  };`;
+
+  const sampleTargetCode = `export const NewCode = () => {
+    // better code maybe?
+    // Change me
+  };`;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="h-full bg-slate-800">
+      <div className="flex space-x-4 w-full justify-center my-12">
+        <div className="flex flex-col">
+          <Label htmlFor="before-code" className="text-white p-4">
+            Before Code
+          </Label>
+          <Textarea
+            rows={10}
+            cols={50}
+            placeholder={sampleSourceCode}
+            value={sourceCode}
+            onChange={updateSourceCode}
+            id="before-code"
+          />
+        </div>
+        <div className="flex flex-col">
+          <Label htmlFor="after-code" className="text-white p-4">
+            After Code
+          </Label>
+          <Textarea
+            rows={10}
+            cols={50}
+            placeholder={sampleTargetCode}
+            value={targetCode}
+            onChange={updateTargetCode}
+            id="after-code"
+          />
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div>
+        <div
+          className={cn(
+            "mx-12",
+            editorSplitView ? "min-w-[1024px]" : "min-w-[850px]"
+          )}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          <div className="flex justify-end space-x-4 p-2 items-center bg-[#2F323E]">
+            {/* <h1>Editor</h1> */}
+            <div className="camera">
+              <CameraIcon
+                className="w-6 h-6 text-slate-200 cursor-pointer"
+                onClick={captureDiffImage}
+              />
+            </div>
+            <div className="cursor-pointer">
+              {showEditorHeader ? (
+                <MessageCircle
+                  className="w-6 h-6 text-slate-200"
+                  onClick={toggleEditorHeader}
+                />
+              ) : (
+                <MessageCircleOff
+                  className="w-6 h-6 text-slate-200"
+                  onClick={toggleEditorHeader}
+                />
+              )}
+            </div>
+            <div className="cursor-pointer">
+              {editorSplitView ? (
+                <TreesIcon
+                  className="w-6 h-6 text-slate-200"
+                  onClick={toggleSplitView}
+                />
+              ) : (
+                <SplitIcon
+                  className="w-6 h-6 text-slate-200"
+                  onClick={toggleSplitView}
+                />
+              )}
+            </div>
+            <div className="cursor-pointer">
+              {editorDarkMode ? (
+                <SunIcon
+                  className="w-6 h-6 text-slate-200"
+                  onClick={toggleEditorDarkMode}
+                />
+              ) : (
+                <MoonIcon
+                  className="w-6 h-6 text-slate-200"
+                  onClick={toggleEditorDarkMode}
+                />
+              )}
+            </div>
+            {/* <Button>Toggle Dark Mode</Button> */}
+          </div>
+          <div
+            id="diff-view"
+            className="p-16 pl-24 pr-24 bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100"
+          >
+            <ReactDiffViewer
+              styles={newStyles}
+              oldValue={sourceCode || sampleSourceCode}
+              newValue={targetCode || sampleTargetCode}
+              splitView={editorSplitView}
+              useDarkTheme={editorDarkMode}
+              leftTitle={showEditorHeader ? undefined : leftHeadingBar}
+              rightTitle={showEditorHeader ? undefined : rightHeadingBar}
+              renderContent={highlightSyntax}
+            />
+          </div>
+        </div>
       </div>
     </main>
   );
