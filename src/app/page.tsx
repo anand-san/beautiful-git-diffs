@@ -2,6 +2,7 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import ReactDiffViewer, {
+  DiffMethod,
   ReactDiffViewerStylesOverride,
 } from "react-diff-viewer";
 import Prism from "prismjs";
@@ -219,6 +220,8 @@ export default function Home() {
               leftTitle={showEditorHeader ? undefined : leftHeadingBar}
               rightTitle={showEditorHeader ? undefined : rightHeadingBar}
               renderContent={highlightSyntax}
+              disableWordDiff={false}
+              compareMethod={DiffMethod.WORDS}
             />
           </div>
         </div>
