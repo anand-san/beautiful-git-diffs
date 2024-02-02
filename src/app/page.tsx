@@ -19,6 +19,17 @@ import {
 import { toPng } from "html-to-image";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import Editor from "@monaco-editor/react";
+
+const sampleSourceCode = `export const OldCode = () => {
+  // Not so amazing code
+  // Change me
+};`;
+
+const sampleTargetCode = `export const NewCode = () => {
+  // better code maybe?
+  // Change me
+};`;
 
 export default function Home() {
   const [sourceCode, setSourceCode] = useState<string>("");
@@ -27,12 +38,12 @@ export default function Home() {
   const [editorSplitView, setEditorSplitView] = useState<boolean>(true);
   const [showEditorHeader, setShowEditorHeader] = useState<boolean>(true);
 
-  const updateSourceCode = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setSourceCode(e.target.value);
+  const updateSourceCode = (value?: string) => {
+    setSourceCode(value || sampleSourceCode);
   };
 
-  const updateTargetCode = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTargetCode(e.target.value);
+  const updateTargetCode = (value?: string) => {
+    setTargetCode(value || sampleTargetCode);
   };
 
   const toggleEditorDarkMode = () => {
@@ -111,53 +122,30 @@ export default function Home() {
 
   const rightHeadingBar = <>After</>;
 
-  const sampleSourceCode = `export const OldCode = () => {
-    // Not so amazing code
-    // Change me
-  };`;
-
-  const sampleTargetCode = `export const NewCode = () => {
-    // better code maybe?
-    // Change me
-  };`;
-
   return (
-    <main className="h-full bg-slate-800">
-      <div className="flex space-x-4 w-full justify-center my-12">
-        <div className="flex flex-col">
-          <Label htmlFor="before-code" className="text-white p-4">
-            Before Code
-          </Label>
-          <Textarea
-            rows={10}
-            cols={50}
-            placeholder={sampleSourceCode}
-            value={sourceCode}
-            onChange={updateSourceCode}
-            id="before-code"
-          />
-        </div>
-        <div className="flex flex-col">
-          <Label htmlFor="after-code" className="text-white p-4">
-            After Code
-          </Label>
-          <Textarea
-            rows={10}
-            cols={50}
-            placeholder={sampleTargetCode}
-            value={targetCode}
-            onChange={updateTargetCode}
-            id="after-code"
-          />
-        </div>
-      </div>
+    <main className="h-full bg-slate-800 min-w-[1024px]">
       <div>
-        <div
-          className={cn(
-            "mx-12",
-            editorSplitView ? "min-w-[1024px]" : "min-w-[850px]"
-          )}
-        >
+        <div className="flex mx-12 mt-12">
+          <Editor
+            height="200px"
+            defaultLanguage="javascript"
+            defaultValue={sampleSourceCode}
+            value={sourceCode}
+            onChange={(value?: string) => updateSourceCode(value)}
+            theme="vs-dark"
+            // width="50vw"
+          />
+          <Editor
+            height="200px"
+            defaultLanguage="javascript"
+            defaultValue={sampleTargetCode}
+            value={targetCode}
+            onChange={(value?: string) => updateTargetCode(value)}
+            theme="vs-dark"
+          />
+        </div>
+
+        <div className={cn("mx-12 mt-12")}>
           <div className="flex justify-end space-x-4 p-2 items-center bg-[#2F323E]">
             {/* <h1>Editor</h1> */}
             <div className="camera">
