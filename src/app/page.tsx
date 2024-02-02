@@ -21,12 +21,14 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import Editor from "@monaco-editor/react";
 
-const sampleSourceCode = `export const OldCode = () => {
+import { CodeEditor } from "@/components/code-editor";
+
+export const sampleSourceCode = `export const OldCode = () => {
   // Not so amazing code
   // Change me
 };`;
 
-const sampleTargetCode = `export const NewCode = () => {
+export const sampleTargetCode = `export const NewCode = () => {
   // better code maybe?
   // Change me
 };`;
@@ -125,29 +127,14 @@ export default function Home() {
   return (
     <main className="h-full bg-slate-800 min-w-[1024px]">
       <div>
-        <div className="flex mx-12 mt-12">
-          <Editor
-            height="200px"
-            defaultLanguage="javascript"
-            defaultValue={sampleSourceCode}
-            value={sourceCode}
-            onChange={(value?: string) => updateSourceCode(value)}
-            theme="vs-dark"
-            // width="50vw"
-          />
-          <Editor
-            height="200px"
-            defaultLanguage="javascript"
-            defaultValue={sampleTargetCode}
-            value={targetCode}
-            onChange={(value?: string) => updateTargetCode(value)}
-            theme="vs-dark"
-          />
-        </div>
-
+        <CodeEditor
+          targetCode={targetCode}
+          sourceCode={sourceCode}
+          updateSourceCode={updateSourceCode}
+          updateTargetCode={updateTargetCode}
+        />
         <div className={cn("mx-12 mt-12")}>
           <div className="flex justify-end space-x-4 p-2 items-center bg-[#2F323E]">
-            {/* <h1>Editor</h1> */}
             <div className="camera">
               <CameraIcon
                 className="w-6 h-6 text-slate-200 cursor-pointer"
@@ -197,7 +184,7 @@ export default function Home() {
           </div>
           <div
             id="diff-view"
-            className="p-16 pl-24 pr-24 bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100"
+            className="flex items-center p-16 pl-24 pr-24 bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 min-h-[400px]"
           >
             <ReactDiffViewer
               styles={newStyles}
