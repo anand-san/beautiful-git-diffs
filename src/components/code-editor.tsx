@@ -42,7 +42,7 @@ export function CodeEditor({
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Open Editor</Button>
+        <Button variant="outline">Open Code Editor</Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto">
