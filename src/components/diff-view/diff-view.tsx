@@ -87,50 +87,8 @@ export default function DiffView({
             : styles.diffViewBgDark
         )}
       >
-        {sourceCode !== targetCode ? (
-          <div className={styles.diffHelpContainer}>
-            <p className={styles.diffHelpContainerTitle}>
-              Feed me code, I will create beautiful diffs for you
-            </p>
-            <p>Understand the diff editor options</p>
-            <ul className="space-y-1">
-              <li className={styles.diffHelpContainerList}>
-                <IconCamera className={styles.diffHelpContainerListIcon} />
-                <p className={styles.diffHelpContainerListText}>
-                  Lets you capture the diff as an image
-                </p>
-              </li>
-              <li className={styles.diffHelpContainerList}>
-                <IconHeading className={styles.diffHelpContainerListIcon} />
-                <p className={styles.diffHelpContainerListText}>/</p>
-                <IconHeadingOff className={styles.diffHelpContainerListIcon} />
-                <p className={styles.diffHelpContainerListText}>
-                  Allows you to toggle the header of the diff editor
-                </p>
-              </li>
-              <li className={styles.diffHelpContainerList}>
-                <IconRouteAltRight
-                  className={styles.diffHelpContainerListIcon}
-                />
-                <p className={styles.diffHelpContainerListText}>/</p>
-                <IconArrowsSplit className={styles.diffHelpContainerListIcon} />
-                <p className={styles.diffHelpContainerListText}>
-                  Lets you change the diff into tree or split view
-                </p>
-              </li>
-              <li className={styles.diffHelpContainerList}>
-                <IconSun className={styles.diffHelpContainerListIcon} />
-                <p className={styles.diffHelpContainerListText}>/</p>
-                <IconMoon className={styles.diffHelpContainerListIcon} />
-                <p className={styles.diffHelpContainerListText}>
-                  Lets you change the theme of the diff editor
-                </p>
-              </li>
-            </ul>
-            <p className={styles.diffHelpContainerFooter}>
-              Press CMD + H to bring back this help text anytime, Have fun
-            </p>
-          </div>
+        {sourceCode === targetCode ? (
+          <HelpNotes />
         ) : (
           <div
             className={styles.diffViewerContainer}
@@ -157,3 +115,47 @@ export default function DiffView({
     </div>
   );
 }
+
+const HelpNotes = () => (
+  <div className={styles.diffHelpContainer}>
+    <p className={styles.diffHelpContainerTitle}>
+      Feed me code, I will create beautiful diffs for you
+    </p>
+    <p>Understand the diff editor options</p>
+    <ul className="space-y-1">
+      <li className={styles.diffHelpContainerList}>
+        <IconCamera className={styles.diffHelpContainerListIcon} />
+        <p className={styles.diffHelpContainerListText}>
+          Lets you capture the diff as an image
+        </p>
+      </li>
+      <li className={styles.diffHelpContainerList}>
+        <IconHeading className={styles.diffHelpContainerListIcon} />
+        <p className={styles.diffHelpContainerListText}>/</p>
+        <IconHeadingOff className={styles.diffHelpContainerListIcon} />
+        <p className={styles.diffHelpContainerListText}>
+          Allows you to toggle the header of the diff editor
+        </p>
+      </li>
+      <li className={styles.diffHelpContainerList}>
+        <IconRouteAltRight className={styles.diffHelpContainerListIcon} />
+        <p className={styles.diffHelpContainerListText}>/</p>
+        <IconArrowsSplit className={styles.diffHelpContainerListIcon} />
+        <p className={styles.diffHelpContainerListText}>
+          Lets you change the diff into tree or split view
+        </p>
+      </li>
+      <li className={styles.diffHelpContainerList}>
+        <IconSun className={styles.diffHelpContainerListIcon} />
+        <p className={styles.diffHelpContainerListText}>/</p>
+        <IconMoon className={styles.diffHelpContainerListIcon} />
+        <p className={styles.diffHelpContainerListText}>
+          Lets you change the theme of the diff editor
+        </p>
+      </li>
+    </ul>
+    <p className={styles.diffHelpContainerFooter}>
+      Press CMD + H to bring back this help text anytime, Have fun
+    </p>
+  </div>
+);
