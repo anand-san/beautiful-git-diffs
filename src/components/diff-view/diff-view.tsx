@@ -4,14 +4,14 @@ import { DiffViewContext } from "@/context/diff-view-context";
 import { sampleSourceCode, sampleTargetCode } from "@/lib/const";
 import { captureElement, cn, customHighlightSyntax } from "@/lib/utils";
 import {
-  CameraIcon,
-  MessageCircle,
-  MessageCircleOff,
-  TreesIcon,
-  SplitIcon,
-  SunIcon,
-  MoonIcon,
-} from "lucide-react";
+  IconCamera,
+  IconHeading,
+  IconHeadingOff,
+  IconArrowsSplit,
+  IconRouteAltRight,
+  IconSun,
+  IconMoon,
+} from "@tabler/icons-react";
 import React, { useContext } from "react";
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import styles from "./diff-view.module.css";
@@ -73,33 +73,33 @@ export default function DiffView() {
             <p>Understand the diff editor options</p>
             <ul className="space-y-1">
               <li className={styles.diffHelpContainerList}>
-                <CameraIcon className={styles.diffHelpContainerListIcon} />
+                <IconCamera className={styles.diffHelpContainerListIcon} />
                 <p className={styles.diffHelpContainerListText}>
                   Lets you capture the diff as an image
                 </p>
               </li>
               <li className={styles.diffHelpContainerList}>
-                <MessageCircle className={styles.diffHelpContainerListIcon} />
+                <IconHeading className={styles.diffHelpContainerListIcon} />
                 <p className={styles.diffHelpContainerListText}>/</p>
-                <MessageCircleOff
-                  className={styles.diffHelpContainerListIcon}
-                />
+                <IconHeadingOff className={styles.diffHelpContainerListIcon} />
                 <p className={styles.diffHelpContainerListText}>
                   Allows you to toggle the header of the diff editor
                 </p>
               </li>
               <li className={styles.diffHelpContainerList}>
-                <TreesIcon className={styles.diffHelpContainerListIcon} />
+                <IconRouteAltRight
+                  className={styles.diffHelpContainerListIcon}
+                />
                 <p className={styles.diffHelpContainerListText}>/</p>
-                <SplitIcon className={styles.diffHelpContainerListIcon} />
+                <IconArrowsSplit className={styles.diffHelpContainerListIcon} />
                 <p className={styles.diffHelpContainerListText}>
                   Lets you change the diff into tree or split view
                 </p>
               </li>
               <li className={styles.diffHelpContainerList}>
-                <SunIcon className={styles.diffHelpContainerListIcon} />
+                <IconSun className={styles.diffHelpContainerListIcon} />
                 <p className={styles.diffHelpContainerListText}>/</p>
-                <MoonIcon className={styles.diffHelpContainerListIcon} />
+                <IconMoon className={styles.diffHelpContainerListIcon} />
                 <p className={styles.diffHelpContainerListText}>
                   Lets you change the theme of the diff editor
                 </p>
