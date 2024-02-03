@@ -25,11 +25,19 @@ interface DockMenuProps {
 
 export default function DockMenu({}: DockMenuProps) {
   const { setTheme, resolvedTheme } = useTheme();
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  // TODO: Fix hydration without using these additional hacks
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleDarkMode = () => {
     const newTheme = resolvedTheme === "light" ? "dark" : "light";
     setTheme(newTheme);
   };
+
+  if (!isMounted) return <></>;
 
   return (
     <section className="nav-wrapper">

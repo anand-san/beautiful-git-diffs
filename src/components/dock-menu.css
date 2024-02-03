@@ -5,6 +5,7 @@
   bottom: 16px;
   left: 0;
   right: 0;
+  animation: mountDock 1s forwards;
 }
 
 .nav-container {
@@ -46,4 +47,13 @@
   width: 20px;
   height: 20px;
   color: #3f3f46;
+}
+
+@keyframes mountDock {
+  0% {
+    bottom: -100px;
+  }
+  100% {
+    bottom: 16px;
+  }
 }
