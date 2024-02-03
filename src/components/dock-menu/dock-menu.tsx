@@ -1,14 +1,14 @@
-"use client";
 import {
-  Camera,
-  Code,
-  GithubIcon,
-  LogIn,
-  MoonIcon,
-  Settings,
-  SunIcon,
-  Twitter,
-} from "lucide-react";
+  IconCameraCode,
+  IconCode,
+  IconSettings,
+  IconBrandGithub,
+  IconBrandX,
+  IconSun,
+  IconMoon,
+  IconLogin2,
+} from "@tabler/icons-react";
+
 import React, { useContext } from "react";
 import styles from "./dock-menu.module.css";
 import Link from "next/link";
@@ -39,7 +39,7 @@ export default function DockMenu({}: DockMenuProps) {
         <CodeEditor
           triggerChild={
             <div className={styles.navElement}>
-              <Code className={styles.navIcon} />
+              <IconCode className={styles.navIcon} />
             </div>
           }
         />
@@ -48,10 +48,10 @@ export default function DockMenu({}: DockMenuProps) {
           className={styles.navElement}
           onClick={() => captureElement("diff-view")}
         >
-          <Camera className={styles.navIcon} />
+          <IconCameraCode className={styles.navIcon} />
         </button>
         <div className={styles.navElement}>
-          <Settings className={styles.navIcon} />
+          <IconSettings className={styles.navIcon} />
         </div>
         <div className={styles.navSeparator}></div>
         <Link
@@ -59,25 +59,24 @@ export default function DockMenu({}: DockMenuProps) {
           href={"https://github.com/anand-san/beautiful-git-diffs"}
           target="_blank"
         >
-          {" "}
-          <GithubIcon className={styles.navIcon} />
+          <IconBrandGithub className={styles.navIcon} />
         </Link>
         <Link
           className={styles.navElement}
           href={"https://twitter.com/anandsan_"}
           target="_blank"
         >
-          <Twitter className={styles.navIcon} />
+          <IconBrandX className={styles.navIcon} />
         </Link>
         <div className={styles.navSeparator}></div>
         <Link className={styles.navElement} href={"/login"}>
-          <LogIn className={styles.navIcon} />
+          <IconLogin2 className={styles.navIcon} />
         </Link>
         <button className={styles.navElement} onClick={toggleColorScheme}>
           {computedColorScheme && computedColorScheme === "light" ? (
-            <MoonIcon className={styles.navIcon} />
+            <IconMoon className={styles.navIcon} />
           ) : (
-            <SunIcon className={styles.navIcon} />
+            <IconSun className={styles.navIcon} />
           )}
         </button>
       </div>
