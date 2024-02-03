@@ -21,29 +21,27 @@ import {
 } from "@/components/ui/select";
 import Editor from "@monaco-editor/react";
 import { sampleSourceCode, sampleTargetCode } from "@/lib/const";
-import { SunIcon } from "lucide-react";
+import { CodeEditorContext } from "@/context/code-editor-context";
 
 export function CodeEditor({
-  targetCode,
-  sourceCode,
-  updateSourceCode,
-  updateTargetCode,
+  triggerChild,
 }: {
-  targetCode: string;
-  sourceCode: string;
-  updateSourceCode: (value?: string) => void;
-  updateTargetCode: (value?: string) => void;
+  triggerChild: React.ReactNode;
 }) {
   const [selectedLanguage, setSelectedLanguage] =
     React.useState<string>("javascript");
-  const [editorTheme, setEditorTheme] = React.useState<"light" | "vs-dark">(
-    "light"
-  );
+
+  const {
+    sourceCode,
+    updateSourceCode,
+    targetCode,
+    updateTargetCode,
+    editorTheme,
+  } = React.useContext(CodeEditorContext);
+
   return (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="outline">Open Code Editor</Button>
-      </DrawerTrigger>
+      <DrawerTrigger asChild>{triggerChild}</DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto">
           <DrawerHeader className="flex justify-between">
