@@ -3,7 +3,6 @@ import {
   Camera,
   Code,
   GithubIcon,
-  HomeIcon,
   LogIn,
   Mail,
   MoonIcon,
@@ -12,11 +11,10 @@ import {
   Twitter,
 } from "lucide-react";
 import React from "react";
-import "./dock-menu.css";
+import styles from "./dock-menu.module.css";
 import { useTheme } from "next-themes";
-import { Button } from "./ui/button";
 import Link from "next/link";
-import { CodeEditor } from "./code-editor";
+import { CodeEditor } from "../code-editor/code-editor";
 import { captureElement } from "@/lib/utils";
 
 interface DockMenuProps {
@@ -40,50 +38,50 @@ export default function DockMenu({}: DockMenuProps) {
   if (!isMounted) return <></>;
 
   return (
-    <section className="nav-wrapper">
-      <div className="nav-container">
+    <section className={styles.navWrapper}>
+      <div className={styles.navContainer}>
         <CodeEditor
           triggerChild={
-            <div className="nav-element">
-              <Code className="nav-icon" />
+            <div className={styles.navElement}>
+              <Code className={styles.navIcon} />
             </div>
           }
         />
 
         <button
-          className="nav-element"
+          className={styles.navElement}
           onClick={() => captureElement("diff-view")}
         >
-          <Camera className="nav-icon" />
+          <Camera className={styles.navIcon} />
         </button>
-        <div className="nav-element">
-          <Settings className="nav-icon" />
+        <div className={styles.navElement}>
+          <Settings className={styles.navIcon} />
         </div>
         <div className="nav-separator"></div>
         <Link
-          className="nav-element"
+          className={styles.navElement}
           href={"https://github.com/anand-san/beautiful-git-diffs"}
           target="_blank"
         >
           {" "}
-          <GithubIcon className="nav-icon" />
+          <GithubIcon className={styles.navIcon} />
         </Link>
         <Link
-          className="nav-element"
+          className={styles.navElement}
           href={"https://twitter.com/anandsan_"}
           target="_blank"
         >
-          <Twitter className="nav-icon" />
+          <Twitter className={styles.navIcon} />
         </Link>
         <div className="nav-separator"></div>
-        <Link className="nav-element" href={"/login"}>
-          <LogIn className="nav-icon" />
+        <Link className={styles.navElement} href={"/login"}>
+          <LogIn className={styles.navIcon} />
         </Link>
-        <button className="nav-element" onClick={handleDarkMode}>
+        <button className={styles.navElement} onClick={handleDarkMode}>
           {resolvedTheme && resolvedTheme === "light" ? (
-            <MoonIcon className="nav-icon" />
+            <MoonIcon className={styles.navIcon} />
           ) : (
-            <SunIcon className="nav-icon" />
+            <SunIcon className={styles.navIcon} />
           )}
         </button>
       </div>
