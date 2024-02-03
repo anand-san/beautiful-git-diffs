@@ -121,7 +121,7 @@ pre[data-line] {
 @media print {
   .line-highlight {
     -webkit-print-color-adjust: exact;
-    color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 .line-highlight:before,
@@ -193,6 +193,7 @@ div.code-toolbar > .toolbar > .toolbar-item > button {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
 }
 div.code-toolbar > .toolbar > .toolbar-item > a,
 div.code-toolbar > .toolbar > .toolbar-item > button,

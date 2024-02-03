@@ -1,0 +1,20 @@
+.drawerBody {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.drawerContent {
+  padding: 16px 24px;
+}
+
+.drawerFooter {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}

@@ -1,0 +1,93 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.diffView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  height: 400px;
+  min-width: 400px;
+  width: 880px;
+  resize: both;
+  overflow: auto;
+  border-radius: 8px;
+}
+
+.diffViewBgLight {
+  background-color: #ffdee9;
+  background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
+}
+
+.diffViewBgDark {
+  background-color: #ff3cac;
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+}
+
+.diffViewerContainer {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  min-width: 400px;
+  resize: horizontal;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.diffHelpContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.diffHelpContainer > * {
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.diffHelpContainerTitle {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 1px;
+}
+
+.diffHelpContainerList {
+  display: flex;
+  align-items: center;
+}
+
+.diffHelpContainerList > * {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.diffHelpContainerListIcon {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.diffHelpContainerListText {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 8px 2px;
+}
+
+.diffHelpContainerFooter {
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 16px;
+  font-style: italic;
+}
