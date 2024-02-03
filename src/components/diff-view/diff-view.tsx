@@ -17,8 +17,13 @@ import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import styles from "./diff-view.module.css";
 import "../../styles/prism.css";
 import { useComputedColorScheme } from "@mantine/core";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 
-export default function DiffView() {
+export default function DiffView({
+  customStyles,
+}: {
+  customStyles?: React.CSSProperties | undefined;
+}) {
   const { targetCode, sourceCode } = useContext(CodeEditorContext);
   const [isMounted, setIsMounted] = React.useState(false);
 
@@ -50,12 +55,29 @@ export default function DiffView() {
     setIsMounted(true);
   }, []);
 
+  const { setNodeRef: droppableRef } = useDroppable({
+    id: "diff-view-container",
+  });
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef: draggableRef,
+    transform,
+  } = useDraggable({
+    id: "diff-viewer",
+  });
+
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : undefined;
+
   if (!isMounted) return <></>;
 
-  console.log(currentTheme, "currentTheme");
-
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={droppableRef}>
       <div
         id="diff-view"
         className={cn(
@@ -65,7 +87,7 @@ export default function DiffView() {
             : styles.diffViewBgDark
         )}
       >
-        {sourceCode === targetCode ? (
+        {sourceCode !== targetCode ? (
           <div className={styles.diffHelpContainer}>
             <p className={styles.diffHelpContainerTitle}>
               Feed me code, I will create beautiful diffs for you
@@ -110,7 +132,13 @@ export default function DiffView() {
             </p>
           </div>
         ) : (
-          <div className={styles.diffViewerContainer}>
+          <div
+            className={styles.diffViewerContainer}
+            ref={draggableRef}
+            {...attributes}
+            {...listeners}
+            style={{ ...style, ...customStyles }}
+          >
             <ReactDiffViewer
               styles={diffViewStyles}
               oldValue={sourceCode || sampleSourceCode}

@@ -45,9 +45,9 @@ export default function DockMenu({}: DockMenuProps) {
         <CodeEditor
           triggerChild={
             <Tooltip position="top" offset={12} label="Code Editor">
-              <UnstyledButton className={styles.navElement}>
+              <div className={styles.navElement}>
                 <IconCode className={styles.navIcon} />
-              </UnstyledButton>
+              </div>
             </Tooltip>
           }
         />
