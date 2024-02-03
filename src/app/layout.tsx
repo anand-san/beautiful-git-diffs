@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-slate-800">
+    <html lang="en">
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
