@@ -1,4 +1,4 @@
-.nav-wrapper {
+.navWrapper {
   display: flex;
   justify-content: center;
   position: absolute;
@@ -8,7 +8,7 @@
   animation: mountDock 1s forwards;
 }
 
-.nav-container {
+.navContainer {
   background-color: #d4d4d8;
   height: 80px;
   border-radius: 24px;
@@ -19,11 +19,18 @@
   padding: 16px;
 }
 
-.nav-element {
+.navContainer > button {
+  outline: none;
+  border: none;
+}
+
+.navElement {
   transition: all 0.3s ease;
-  position: relative;
   padding: 16px;
-  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
   background-color: #a1a1aa;
   margin-right: 6px;
   margin-left: 6px;
@@ -33,17 +40,17 @@
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 
-.nav-element:hover {
+.navElement:hover {
   margin-bottom: 18px;
 }
 
-.nav-separator {
+.navSeparator {
   border: 1px solid #3f3f46;
-  margin-right: 8px;
-  margin-left: 8px;
+  margin-right: 6px;
+  margin-left: 6px;
 }
 
-.nav-icon {
+.navIcon {
   width: 20px;
   height: 20px;
   color: #3f3f46;
