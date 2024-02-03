@@ -14,6 +14,7 @@ import {
 import React, { useContext } from "react";
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import styles from "./diff-view.module.css";
+import "../../styles/prism.css";
 
 export default function DiffView() {
   const { targetCode, sourceCode } = useContext(CodeEditorContext);
