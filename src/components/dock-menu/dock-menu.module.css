@@ -19,10 +19,18 @@
   padding: 16px;
 }
 
+.navContainer > button {
+  outline: none;
+  border: none;
+}
+
 .navElement {
   transition: all 0.3s ease;
   padding: 16px;
-  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
   background-color: #a1a1aa;
   margin-right: 6px;
   margin-left: 6px;
@@ -38,8 +46,8 @@
 
 .navSeparator {
   border: 1px solid #3f3f46;
-  margin-right: 8px;
-  margin-left: 8px;
+  margin-right: 6px;
+  margin-left: 6px;
 }
 
 .navIcon {

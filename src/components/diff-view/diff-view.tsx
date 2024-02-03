@@ -88,18 +88,20 @@ export default function DiffView() {
             </p>
           </div>
         ) : (
-          <ReactDiffViewer
-            styles={diffViewStyles}
-            oldValue={sourceCode || sampleSourceCode}
-            newValue={targetCode || sampleTargetCode}
-            splitView={editorSplitView}
-            useDarkTheme={editorDarkMode}
-            leftTitle={showEditorHeader ? undefined : leftHeadingBar}
-            rightTitle={showEditorHeader ? undefined : rightHeadingBar}
-            renderContent={highlightSyntax}
-            disableWordDiff={false}
-            compareMethod={DiffMethod.WORDS}
-          />
+          <div className={styles.diffViewerContainer}>
+            <ReactDiffViewer
+              styles={diffViewStyles}
+              oldValue={sourceCode || sampleSourceCode}
+              newValue={targetCode || sampleTargetCode}
+              splitView={editorSplitView}
+              useDarkTheme={editorDarkMode}
+              leftTitle={showEditorHeader ? undefined : leftHeadingBar}
+              rightTitle={showEditorHeader ? undefined : rightHeadingBar}
+              renderContent={highlightSyntax}
+              disableWordDiff={false}
+              compareMethod={DiffMethod.WORDS}
+            />
+          </div>
         )}
       </div>
     </div>
