@@ -22,16 +22,7 @@ import { cn } from "@/lib/utils";
 import Editor from "@monaco-editor/react";
 
 import { CodeEditor } from "@/components/code-editor";
-
-export const sampleSourceCode = `export const OldCode = () => {
-  // Not so amazing code
-  // Change me
-};`;
-
-export const sampleTargetCode = `export const NewCode = () => {
-  // better code maybe?
-  // Change me
-};`;
+import { sampleSourceCode, sampleTargetCode } from "@/lib/const";
 
 export default function Home() {
   const [sourceCode, setSourceCode] = useState<string>("");

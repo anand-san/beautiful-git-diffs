@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Editor from "@monaco-editor/react";
-import { sampleSourceCode, sampleTargetCode } from "@/app/page";
+import { sampleSourceCode, sampleTargetCode } from "@/lib/const";
 import { SunIcon } from "lucide-react";
 
 export function CodeEditor({
