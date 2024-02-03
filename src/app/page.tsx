@@ -2,12 +2,12 @@
 import "../styles/prism.css";
 import DockMenu from "@/components/dock-menu/dock-menu";
 import AppContext from "@/context/app-context";
-import DiffView from "@/components/diff-view";
-
+import DiffView from "@/components/diff-view/diff-view";
+import styles from "./page.module.css";
 export default function Home() {
   return (
     <AppContext>
-      <main className="h-full">
+      <main className={styles.container}>
         <DiffView />
         <DockMenu />
       </main>
