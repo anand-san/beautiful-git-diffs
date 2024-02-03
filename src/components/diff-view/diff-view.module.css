@@ -6,18 +6,31 @@
 }
 
 .diffView {
-  background-color: #ffdee9;
-  background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 250px;
-  height: 300px;
+  height: 400px;
   min-width: 400px;
   width: 880px;
   resize: both;
   overflow: auto;
   border-radius: 8px;
+}
+
+.diffViewBgLight {
+  background-color: #ffdee9;
+  background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
+}
+
+.diffViewBgDark {
+  background-color: #ff3cac;
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
 }
 
 .diffViewerContainer {

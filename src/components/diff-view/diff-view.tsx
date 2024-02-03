@@ -1,3 +1,4 @@
+"use client";
 import { CodeEditorContext } from "@/context/code-editor-context";
 import { DiffViewContext } from "@/context/diff-view-context";
 import { sampleSourceCode, sampleTargetCode } from "@/lib/const";
@@ -15,9 +16,11 @@ import React, { useContext } from "react";
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import styles from "./diff-view.module.css";
 import "../../styles/prism.css";
+import { useComputedColorScheme } from "@mantine/core";
 
 export default function DiffView() {
   const { targetCode, sourceCode } = useContext(CodeEditorContext);
+  const [isMounted, setIsMounted] = React.useState(false);
 
   const {
     showEditorHeader,
@@ -40,9 +43,28 @@ export default function DiffView() {
     />
   );
 
+  const currentTheme = useComputedColorScheme();
+
+  // TODO: Fix hydration without using these additional hacks
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return <></>;
+
+  console.log(currentTheme, "currentTheme");
+
   return (
     <div className={styles.container}>
-      <div id="diff-view" className={styles.diffView}>
+      <div
+        id="diff-view"
+        className={cn(
+          styles.diffView,
+          currentTheme === "light"
+            ? styles.diffViewBgLight
+            : styles.diffViewBgDark
+        )}
+      >
         {sourceCode === targetCode ? (
           <div className={styles.diffHelpContainer}>
             <p className={styles.diffHelpContainerTitle}>

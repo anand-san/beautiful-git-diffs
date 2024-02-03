@@ -14,14 +14,25 @@ import styles from "./dock-menu.module.css";
 import Link from "next/link";
 import { CodeEditor } from "../code-editor/code-editor";
 import { captureElement } from "@/lib/utils";
-import { useMantineColorScheme } from "@mantine/core";
+import { useComputedColorScheme, useMantineColorScheme } from "@mantine/core";
 
 interface DockMenuProps {
   position?: "top" | "bottom";
 }
 
 export default function DockMenu({}: DockMenuProps) {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { toggleColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme();
+
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  // TODO: Fix hydration without using these additional hacks
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return <></>;
+
   return (
     <section className={styles.navWrapper}>
       <div className={styles.navContainer}>
@@ -63,7 +74,7 @@ export default function DockMenu({}: DockMenuProps) {
           <LogIn className={styles.navIcon} />
         </Link>
         <button className={styles.navElement} onClick={toggleColorScheme}>
-          {colorScheme && colorScheme === "light" ? (
+          {computedColorScheme && computedColorScheme === "light" ? (
             <MoonIcon className={styles.navIcon} />
           ) : (
             <SunIcon className={styles.navIcon} />
