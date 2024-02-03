@@ -7,7 +7,7 @@ import DiffView from "@/components/diff-view";
 export default function Home() {
   return (
     <AppContext>
-      <main className="h-full bg-slate-800 min-w-[1024px]">
+      <main className="h-full">
         <DiffView />
         <DockMenu />
       </main>
