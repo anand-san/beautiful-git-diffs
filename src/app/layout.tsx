@@ -11,12 +11,12 @@ const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://gd.sandilya.dev"),
   title: {
-    default: "Beautiful Git Diffs",
-    template: "%s | Beautiful Git Diffs",
+    default: "Beautiful git-diff screenshots",
+    template: "%s | Beautiful git-diff screenshots",
   },
   description: "Create beautiful git-diff screenshots from code",
   openGraph: {
-    title: "Create Beautiful Git Diff",
+    title: "Beautiful git-diff screenshots",
     description: "Create beautiful git-diff screenshots from code",
     url: "https://gd.sandilya.dev",
     siteName: "Beautiful Git Diff",
@@ -35,8 +35,9 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Create Beautiful Git Diff",
+    title: "Beautiful git-diff screenshots",
     card: "summary_large_image",
+    description: "Create beautiful git-diff screenshots from code",
   },
   verification: {
     google: "eZSdmzAXlLkKhNJzfgwDqWORghxnJ8qR9_CHdAh5-xw",
