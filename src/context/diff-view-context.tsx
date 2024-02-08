@@ -1,6 +1,6 @@
 import { TextInput } from "@mantine/core";
 import { createContext, useState } from "react";
-import { ReactDiffViewerStylesOverride } from "react-diff-viewer";
+import { DiffMethod, ReactDiffViewerStylesOverride } from "react-diff-viewer";
 
 export const DiffViewContext = createContext({
   editorSplitView: true,
@@ -15,6 +15,8 @@ export const DiffViewContext = createContext({
   diffViewStyles: {},
   leftHeadingBar: <>Before</>,
   rightHeadingBar: <>After</>,
+  diffAlgorithm: DiffMethod.WORDS,
+  changeDiffAlgorithm: (method: DiffMethod) => {},
 });
 
 export const DiffViewContextProvider = ({
@@ -27,6 +29,9 @@ export const DiffViewContextProvider = ({
   const [dndEnabled, setDndEnabled] = useState(false);
   const [leftHeadingBarText, setLeftHeadingBarText] = useState("Before");
   const [rightHeadingBarText, setRightHeadingBarText] = useState("After");
+  const [diffAlgorithm, setDiffAlgorithm] = useState<DiffMethod>(
+    DiffMethod.WORDS
+  );
 
   const toggleSplitView = () => {
     setEditorSplitView(!editorSplitView);
@@ -46,6 +51,10 @@ export const DiffViewContextProvider = ({
 
   const changeLeftHeadingBarText = (text: string) => {
     setLeftHeadingBarText(text);
+  };
+
+  const changeDiffAlgorithm = (method: DiffMethod) => {
+    setDiffAlgorithm(method);
   };
 
   const diffViewStyles: ReactDiffViewerStylesOverride = {
@@ -115,6 +124,8 @@ export const DiffViewContextProvider = ({
     rightHeadingBar,
     dndEnabled,
     toggleDnd,
+    diffAlgorithm,
+    changeDiffAlgorithm,
   };
 
   return (

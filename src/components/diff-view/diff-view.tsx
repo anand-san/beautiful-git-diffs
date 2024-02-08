@@ -12,7 +12,7 @@ import {
   IconMoon,
 } from "@tabler/icons-react";
 import React, { useContext, useState } from "react";
-import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
+import ReactDiffViewer from "react-diff-viewer";
 import styles from "./diff-view.module.css";
 import "../../styles/prism.css";
 import { useComputedColorScheme } from "@mantine/core";
@@ -32,6 +32,7 @@ export default function DiffView({
     rightHeadingBar,
     diffViewStyles,
     dndEnabled,
+    diffAlgorithm,
   } = useContext(DiffViewContext);
 
   const highlightSyntax = (str: string) => (
@@ -104,7 +105,7 @@ export default function DiffView({
             rightTitle={showEditorHeader ? rightHeadingBar : undefined}
             renderContent={highlightSyntax}
             disableWordDiff={false}
-            compareMethod={DiffMethod.WORDS}
+            compareMethod={diffAlgorithm}
           />
         </div>
       </div>
