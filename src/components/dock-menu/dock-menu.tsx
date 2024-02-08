@@ -21,6 +21,7 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from "@mantine/core";
+import { Settings } from "../settings/settings";
 
 interface DockMenuProps {
   position?: "top" | "bottom";
@@ -61,11 +62,15 @@ export default function DockMenu({}: DockMenuProps) {
           </UnstyledButton>
         </Tooltip>
 
-        <Tooltip position="top" offset={12} label="Settings">
-          <UnstyledButton className={styles.navElement}>
-            <IconSettings className={styles.navIcon} />
-          </UnstyledButton>
-        </Tooltip>
+        <Settings
+          triggerChild={
+            <Tooltip position="top" offset={12} label="Settings">
+              <div className={styles.navElement}>
+                <IconSettings className={styles.navIcon} />
+              </div>
+            </Tooltip>
+          }
+        />
 
         <div className={styles.navSeparator}></div>
 
