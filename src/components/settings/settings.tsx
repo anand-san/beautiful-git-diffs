@@ -11,6 +11,8 @@ import {
   rem,
   Divider,
   Blockquote,
+  Radio,
+  Group,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -21,6 +23,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { DiffViewContext } from "@/context/diff-view-context";
+import { DiffMethod } from "react-diff-viewer";
 
 export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -32,6 +35,8 @@ export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
     toggleEditorHeader,
     editorSplitView,
     toggleSplitView,
+    diffAlgorithm,
+    changeDiffAlgorithm,
   } = React.useContext(DiffViewContext);
 
   return (
@@ -150,6 +155,20 @@ export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
                   The text on the header is editable
                 </Blockquote>
               )}
+              <Radio.Group
+                name="diffAlgorithm"
+                label="Select word difference calculator algorithm"
+                size="md"
+                value={diffAlgorithm}
+                withAsterisk
+                onChange={(value) => changeDiffAlgorithm(value as DiffMethod)}
+              >
+                <Group mt="xs">
+                  <Radio value={DiffMethod.CHARS} label="Chars" />
+                  <Radio value={DiffMethod.WORDS} label="Words" />
+                  <Radio value={DiffMethod.LINES} label="Lines" />
+                </Group>
+              </Radio.Group>
             </div>
             <Divider my="md" />
             <h3>Code Editor</h3>
