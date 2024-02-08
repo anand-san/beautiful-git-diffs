@@ -13,14 +13,26 @@ import {
   Blockquote,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCheck, IconInfoCircle, IconX } from "@tabler/icons-react";
+import {
+  IconArrowsSplit,
+  IconCheck,
+  IconInfoCircle,
+  IconTree,
+  IconX,
+} from "@tabler/icons-react";
 import { DiffViewContext } from "@/context/diff-view-context";
 
 export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
   const [opened, { open, close }] = useDisclosure(false);
   const theme = useMantineTheme();
-  const { dndEnabled, toggleDnd, showEditorHeader, toggleEditorHeader } =
-    React.useContext(DiffViewContext);
+  const {
+    dndEnabled,
+    toggleDnd,
+    showEditorHeader,
+    toggleEditorHeader,
+    editorSplitView,
+    toggleSplitView,
+  } = React.useContext(DiffViewContext);
 
   return (
     <div>
@@ -28,7 +40,7 @@ export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
         opened={opened}
         onClose={close}
         position="right"
-        overlayProps={{ backgroundOpacity: 0.3, blur: 1 }}
+        overlayProps={{ backgroundOpacity: 0, blur: 0 }}
         size={"md"}
         padding={0}
         title={<h2 className={styles.drawerTitle}>Settings</h2>}
@@ -71,6 +83,40 @@ export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
                   resize the diff-viewer container and vice versa.
                 </Blockquote>
               )}
+              {!dndEnabled && (
+                <Blockquote
+                  color="blue"
+                  icon={<IconInfoCircle />}
+                  mt="md"
+                  iconSize={24}
+                  className={styles.blockquote}
+                >
+                  You will be able to resize diff viewer container when drag and
+                  drop is disabled
+                </Blockquote>
+              )}
+              <Switch
+                checked={editorSplitView}
+                onChange={toggleSplitView}
+                color="teal"
+                size="md"
+                label="Toggle Split/Tree view"
+                thumbIcon={
+                  editorSplitView ? (
+                    <IconArrowsSplit
+                      style={{ width: rem(12), height: rem(12) }}
+                      color={theme.colors.teal[6]}
+                      stroke={3}
+                    />
+                  ) : (
+                    <IconTree
+                      style={{ width: rem(12), height: rem(12) }}
+                      color={theme.colors.red[6]}
+                      stroke={3}
+                    />
+                  )
+                }
+              />
               <Switch
                 checked={showEditorHeader}
                 onChange={toggleEditorHeader}
