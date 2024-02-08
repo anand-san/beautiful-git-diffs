@@ -18,6 +18,8 @@
   border-radius: 8px;
   user-select: none;
   cursor: pointer;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .diffViewBgLight {
