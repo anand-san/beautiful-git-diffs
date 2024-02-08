@@ -27,8 +27,6 @@ export default function DiffView({
   const [isMounted, setIsMounted] = useState(false);
   const {
     showEditorHeader,
-    toggleEditorHeader,
-    toggleSplitView,
     editorSplitView,
     leftHeadingBar,
     rightHeadingBar,
@@ -46,6 +44,10 @@ export default function DiffView({
   );
 
   const currentTheme = useComputedColorScheme();
+
+  const resizeStyles: React.CSSProperties | undefined = dndEnabled
+    ? {}
+    : { resize: "horizontal", overflow: "auto" };
 
   // TODO: Fix hydration without using these additional hacks
   React.useEffect(() => {
@@ -85,15 +87,12 @@ export default function DiffView({
             : styles.diffViewBgDark
         )}
       >
-        {/* {sourceCode === targetCode ? (
-          <HelpNotes />
-        ) : ( */}
         <div
           className={styles.diffViewerContainer}
           ref={draggableRef}
           {...attributes}
           {...listeners}
-          style={{ ...style, ...customStyles }}
+          style={{ ...style, ...customStyles, ...resizeStyles }}
         >
           <ReactDiffViewer
             styles={diffViewStyles}
@@ -108,7 +107,6 @@ export default function DiffView({
             compareMethod={DiffMethod.WORDS}
           />
         </div>
-        {/* )} */}
       </div>
     </div>
   );
