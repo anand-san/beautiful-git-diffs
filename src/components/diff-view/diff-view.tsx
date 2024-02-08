@@ -29,11 +29,9 @@ export default function DiffView({
 
   const {
     showEditorHeader,
-    toggleEditorDarkMode,
     toggleEditorHeader,
     toggleSplitView,
     editorSplitView,
-    editorDarkMode,
     leftHeadingBar,
     rightHeadingBar,
     diffViewStyles,
@@ -102,7 +100,7 @@ export default function DiffView({
             oldValue={sourceCode || sampleSourceCode}
             newValue={targetCode || sampleTargetCode}
             splitView={editorSplitView}
-            useDarkTheme={editorDarkMode}
+            useDarkTheme={currentTheme === "dark"}
             leftTitle={showEditorHeader ? undefined : leftHeadingBar}
             rightTitle={showEditorHeader ? undefined : rightHeadingBar}
             renderContent={highlightSyntax}
