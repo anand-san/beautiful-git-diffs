@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import Editor from "@monaco-editor/react";
-import { sampleSourceCode, sampleTargetCode } from "@/lib/const";
 import { CodeEditorContext } from "@/context/code-editor-context";
 import styles from "./code-editor.module.css";
 import {
@@ -92,7 +91,6 @@ export function CodeEditor({
             <Editor
               height="400px"
               defaultLanguage="javascript"
-              defaultValue={sampleSourceCode}
               value={sourceCode}
               onChange={(value?: string) => updateSourceCode(value)}
               language={selectedLanguage || "javascript"}
@@ -101,7 +99,6 @@ export function CodeEditor({
             <Editor
               height="400px"
               defaultLanguage="javascript"
-              defaultValue={sampleTargetCode}
               value={targetCode}
               onChange={(value?: string) => updateTargetCode(value)}
               language={selectedLanguage || "javascript"}
