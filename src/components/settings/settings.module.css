@@ -1,0 +1,28 @@
+.container {
+  /* height: 100%; */
+  display: flex;
+  margin-top: 30px;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.drawerTitle {
+  padding: 8px;
+}
+
+.drawerBody {
+  padding: 14px;
+  width: 100%;
+}
+
+.diffViewerOptions > * {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.blockquote {
+  padding: 12px;
+  margin-left: 24px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}

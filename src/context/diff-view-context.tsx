@@ -1,3 +1,4 @@
+import { TextInput } from "@mantine/core";
 import { createContext, useState } from "react";
 import { ReactDiffViewerStylesOverride } from "react-diff-viewer";
 
@@ -7,6 +8,9 @@ export const DiffViewContext = createContext({
 
   showEditorHeader: true,
   toggleEditorHeader: () => {},
+
+  dndEnabled: false,
+  toggleDnd: () => {},
 
   diffViewStyles: {},
   leftHeadingBar: <>Before</>,
@@ -20,6 +24,9 @@ export const DiffViewContextProvider = ({
 }) => {
   const [editorSplitView, setEditorSplitView] = useState<boolean>(true);
   const [showEditorHeader, setShowEditorHeader] = useState<boolean>(true);
+  const [dndEnabled, setDndEnabled] = useState(false);
+  const [leftHeadingBarText, setLeftHeadingBarText] = useState("Before");
+  const [rightHeadingBarText, setRightHeadingBarText] = useState("After");
 
   const toggleSplitView = () => {
     setEditorSplitView(!editorSplitView);
@@ -27,6 +34,18 @@ export const DiffViewContextProvider = ({
 
   const toggleEditorHeader = () => {
     setShowEditorHeader(!showEditorHeader);
+  };
+
+  const toggleDnd = () => {
+    setDndEnabled(!dndEnabled);
+  };
+
+  const changeRightHeadingBarText = (text: string) => {
+    setRightHeadingBarText(text);
+  };
+
+  const changeLeftHeadingBarText = (text: string) => {
+    setLeftHeadingBarText(text);
   };
 
   const diffViewStyles: ReactDiffViewerStylesOverride = {
@@ -66,9 +85,25 @@ export const DiffViewContextProvider = ({
     },
   };
 
-  const leftHeadingBar = <>Before</>;
+  const leftHeadingBar = (
+    <TextInput
+      variant="unstyled"
+      value={leftHeadingBarText}
+      onChange={(event) => changeLeftHeadingBarText(event.currentTarget.value)}
+      style={{ fontStyle: "italic", fontWeight: 400 }}
+      size="md"
+    />
+  );
 
-  const rightHeadingBar = <>After</>;
+  const rightHeadingBar = (
+    <TextInput
+      variant="unstyled"
+      value={rightHeadingBarText}
+      onChange={(event) => changeRightHeadingBarText(event.currentTarget.value)}
+      style={{ fontStyle: "italic", fontWeight: 400 }}
+      size="md"
+    />
+  );
 
   const value = {
     editorSplitView,
@@ -78,6 +113,8 @@ export const DiffViewContextProvider = ({
     diffViewStyles,
     leftHeadingBar,
     rightHeadingBar,
+    dndEnabled,
+    toggleDnd,
   };
 
   return (

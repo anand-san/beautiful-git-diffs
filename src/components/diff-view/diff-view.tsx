@@ -11,7 +11,7 @@ import {
   IconSun,
   IconMoon,
 } from "@tabler/icons-react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import styles from "./diff-view.module.css";
 import "../../styles/prism.css";
@@ -24,8 +24,7 @@ export default function DiffView({
   customStyles?: React.CSSProperties | undefined;
 }) {
   const { targetCode, sourceCode } = useContext(CodeEditorContext);
-  const [isMounted, setIsMounted] = React.useState(false);
-
+  const [isMounted, setIsMounted] = useState(false);
   const {
     showEditorHeader,
     toggleEditorHeader,
@@ -34,6 +33,7 @@ export default function DiffView({
     leftHeadingBar,
     rightHeadingBar,
     diffViewStyles,
+    dndEnabled,
   } = useContext(DiffViewContext);
 
   const highlightSyntax = (str: string) => (
@@ -63,6 +63,7 @@ export default function DiffView({
     transform,
   } = useDraggable({
     id: "diff-viewer",
+    disabled: !dndEnabled,
   });
 
   const style = transform
@@ -100,8 +101,8 @@ export default function DiffView({
             newValue={targetCode}
             splitView={editorSplitView}
             useDarkTheme={currentTheme === "dark"}
-            leftTitle={showEditorHeader ? undefined : leftHeadingBar}
-            rightTitle={showEditorHeader ? undefined : rightHeadingBar}
+            leftTitle={showEditorHeader ? leftHeadingBar : undefined}
+            rightTitle={showEditorHeader ? rightHeadingBar : undefined}
             renderContent={highlightSyntax}
             disableWordDiff={false}
             compareMethod={DiffMethod.WORDS}
