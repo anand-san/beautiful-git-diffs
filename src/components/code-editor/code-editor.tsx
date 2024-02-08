@@ -45,13 +45,13 @@ export function CodeEditor({
       <Drawer
         opened={opened}
         onClose={close}
-        position="top"
-        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
-        size={"lg"}
+        position="right"
+        overlayProps={{ backgroundOpacity: 0.3, blur: 1 }}
+        size={"xl"}
         withCloseButton={false}
         padding={0}
       >
-        <DrawerContent className={styles.drawerContent}>
+        <DrawerContent>
           <DrawerHeader className={styles.drawerHeader}>
             <DrawerTitle>
               <h3>Edit your code</h3>
@@ -88,6 +88,7 @@ export function CodeEditor({
             ></Select>
           </DrawerHeader>
           <DrawerBody className={styles.drawerBody}>
+            <h3 className={styles.heading}>Before</h3>
             <Editor
               height="400px"
               defaultLanguage="javascript"
@@ -96,6 +97,8 @@ export function CodeEditor({
               language={selectedLanguage || "javascript"}
               theme={currentTheme === "light" ? "light" : "vs-dark"}
             />
+            <h3 className={styles.heading}>After</h3>
+
             <Editor
               height="400px"
               defaultLanguage="javascript"
