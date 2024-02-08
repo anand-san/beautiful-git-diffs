@@ -1,5 +1,6 @@
 .drawerBody {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-top: 16px;
 }
@@ -7,14 +8,17 @@
 .drawerHeader {
   display: flex;
   justify-content: space-between;
-}
-
-.drawerContent {
-  padding: 16px 24px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .drawerFooter {
   display: flex;
   justify-content: center;
   margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.heading {
+  padding-left: 16px;
 }
