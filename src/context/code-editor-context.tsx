@@ -14,15 +14,15 @@ export const CodeEditorContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [sourceCode, setSourceCode] = useState<string>("");
-  const [targetCode, setTargetCode] = useState<string>("");
+  const [sourceCode, setSourceCode] = useState<string>(sampleSourceCode);
+  const [targetCode, setTargetCode] = useState<string>(sampleTargetCode);
 
   const updateSourceCode = (value?: string) => {
-    setSourceCode(value || sampleSourceCode);
+    setSourceCode(value || "");
   };
 
   const updateTargetCode = (value?: string) => {
-    setTargetCode(value || sampleTargetCode);
+    setTargetCode(value || "");
   };
 
   const value = {

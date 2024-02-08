@@ -1,8 +1,7 @@
 "use client";
 import { CodeEditorContext } from "@/context/code-editor-context";
 import { DiffViewContext } from "@/context/diff-view-context";
-import { sampleSourceCode, sampleTargetCode } from "@/lib/const";
-import { captureElement, cn, customHighlightSyntax } from "@/lib/utils";
+import { cn, customHighlightSyntax } from "@/lib/utils";
 import {
   IconCamera,
   IconHeading,
@@ -97,8 +96,8 @@ export default function DiffView({
         >
           <ReactDiffViewer
             styles={diffViewStyles}
-            oldValue={sourceCode || sampleSourceCode}
-            newValue={targetCode || sampleTargetCode}
+            oldValue={sourceCode}
+            newValue={targetCode}
             splitView={editorSplitView}
             useDarkTheme={currentTheme === "dark"}
             leftTitle={showEditorHeader ? undefined : leftHeadingBar}
