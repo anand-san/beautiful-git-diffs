@@ -13,6 +13,7 @@ import {
   Select,
   CloseButton,
   UnstyledButton,
+  useComputedColorScheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -22,18 +23,23 @@ export function CodeEditor({
   triggerChild: React.ReactNode;
 }) {
   const [opened, { open, close }] = useDisclosure(false);
+  const [isMounted, setIsMounted] = React.useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = React.useState<string | null>(
     "javascript"
   );
 
-  const {
-    sourceCode,
-    updateSourceCode,
-    targetCode,
-    updateTargetCode,
-    editorTheme,
-  } = React.useContext(CodeEditorContext);
+  const currentTheme = useComputedColorScheme();
+
+  // TODO: Fix hydration without using these additional hacks
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const { sourceCode, updateSourceCode, targetCode, updateTargetCode } =
+    React.useContext(CodeEditorContext);
+
+  if (!isMounted) return <></>;
 
   return (
     <div>
@@ -90,7 +96,7 @@ export function CodeEditor({
               value={sourceCode}
               onChange={(value?: string) => updateSourceCode(value)}
               language={selectedLanguage || "javascript"}
-              theme={editorTheme}
+              theme={currentTheme === "light" ? "light" : "vs-dark"}
             />
             <Editor
               height="400px"
@@ -99,7 +105,7 @@ export function CodeEditor({
               value={targetCode}
               onChange={(value?: string) => updateTargetCode(value)}
               language={selectedLanguage || "javascript"}
-              theme={editorTheme}
+              theme={currentTheme === "light" ? "light" : "vs-dark"}
             />
           </DrawerBody>
           <div className={styles.drawerFooter}>

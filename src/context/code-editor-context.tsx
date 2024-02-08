@@ -7,9 +7,6 @@ export const CodeEditorContext = createContext({
 
   targetCode: "",
   updateTargetCode: (value?: string) => {},
-
-  editorTheme: "vs-dark",
-  toggleEditorTheme: (value?: "light" | "vs-dark") => {},
 });
 
 export const CodeEditorContextProvider = ({
@@ -19,9 +16,6 @@ export const CodeEditorContextProvider = ({
 }) => {
   const [sourceCode, setSourceCode] = useState<string>("");
   const [targetCode, setTargetCode] = useState<string>("");
-  const [editorTheme, setEditorTheme] = useState<"light" | "vs-dark">(
-    "vs-dark"
-  );
 
   const updateSourceCode = (value?: string) => {
     setSourceCode(value || sampleSourceCode);
@@ -31,19 +25,11 @@ export const CodeEditorContextProvider = ({
     setTargetCode(value || sampleTargetCode);
   };
 
-  const toggleEditorTheme = (value?: "light" | "vs-dark") => {
-    setEditorTheme((currentTheme) =>
-      currentTheme === "light" ? "vs-dark" : "light"
-    );
-  };
-
   const value = {
     sourceCode,
     updateSourceCode,
     targetCode,
     updateTargetCode,
-    editorTheme,
-    toggleEditorTheme,
   };
 
   return (
