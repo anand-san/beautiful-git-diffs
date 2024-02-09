@@ -26,3 +26,16 @@
   font-size: 14px;
   margin-bottom: 24px;
 }
+
+.gradiantPicker {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* align-items: center; */
+  margin-top: 12px;
+}
+
+.gradiantPickerOption > * {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

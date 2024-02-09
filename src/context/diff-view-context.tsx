@@ -2,6 +2,15 @@ import { TextInput } from "@mantine/core";
 import { createContext, useState } from "react";
 import { DiffMethod, ReactDiffViewerStylesOverride } from "react-diff-viewer";
 
+export type BackgroundGradiant = {
+  direction: string;
+  from: string;
+  fromPosition: number;
+  via: string;
+  viaPosition: number;
+  to: string;
+  toPosition: number;
+};
 export const DiffViewContext = createContext({
   editorSplitView: true,
   toggleSplitView: () => {},
@@ -13,10 +22,30 @@ export const DiffViewContext = createContext({
   toggleDnd: () => {},
 
   diffViewStyles: {},
+
   leftHeadingBar: <>Before</>,
   rightHeadingBar: <>After</>,
+
   diffAlgorithm: DiffMethod.WORDS,
-  changeDiffAlgorithm: (method: DiffMethod) => {},
+  setDiffAlgorithm: (method: DiffMethod) => {},
+
+  backgroundGradiant: {
+    direction: "225deg",
+    from: "#ff3cac",
+    fromPosition: 0,
+    via: "#784ba0",
+    viaPosition: 50,
+    to: "#2b86c5",
+    toPosition: 100,
+  },
+
+  setBackgroundGradiant: (newBackground: BackgroundGradiant) => {},
+
+  useSolidBackground: false,
+  toggleUseSolidBackground: () => {},
+
+  backgroundColor: "#339af0",
+  setBackgroundColor: (newBackground: string) => {},
 });
 
 export const DiffViewContextProvider = ({
@@ -32,6 +61,24 @@ export const DiffViewContextProvider = ({
   const [diffAlgorithm, setDiffAlgorithm] = useState<DiffMethod>(
     DiffMethod.WORDS
   );
+
+  const [useSolidBackground, setUseSolidBackground] = useState<boolean>(false);
+  const [backgroundColor, setBackgroundColor] = useState<string>("#339af0");
+
+  const [backgroundGradiant, setBackgroundGradiant] =
+    useState<BackgroundGradiant>({
+      direction: "225deg",
+      from: "#ff3cac",
+      fromPosition: 0,
+      via: "#784ba0",
+      viaPosition: 50,
+      to: "#2b86c5",
+      toPosition: 100,
+    });
+
+  const toggleUseSolidBackground = () => {
+    setUseSolidBackground(!useSolidBackground);
+  };
 
   const toggleSplitView = () => {
     setEditorSplitView(!editorSplitView);
@@ -51,10 +98,6 @@ export const DiffViewContextProvider = ({
 
   const changeLeftHeadingBarText = (text: string) => {
     setLeftHeadingBarText(text);
-  };
-
-  const changeDiffAlgorithm = (method: DiffMethod) => {
-    setDiffAlgorithm(method);
   };
 
   const diffViewStyles: ReactDiffViewerStylesOverride = {
@@ -125,7 +168,13 @@ export const DiffViewContextProvider = ({
     dndEnabled,
     toggleDnd,
     diffAlgorithm,
-    changeDiffAlgorithm,
+    setDiffAlgorithm,
+    backgroundGradiant,
+    setBackgroundGradiant,
+    backgroundColor,
+    setBackgroundColor,
+    useSolidBackground,
+    toggleUseSolidBackground,
   };
 
   return (

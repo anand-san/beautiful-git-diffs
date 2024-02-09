@@ -33,6 +33,9 @@ export default function DiffView({
     diffViewStyles,
     dndEnabled,
     diffAlgorithm,
+    useSolidBackground,
+    backgroundColor,
+    backgroundGradiant,
   } = useContext(DiffViewContext);
 
   const highlightSyntax = (str: string) => (
@@ -81,12 +84,14 @@ export default function DiffView({
     <div className={styles.container} ref={droppableRef}>
       <div
         id="diff-view"
-        className={cn(
-          styles.diffView,
-          currentTheme === "light"
-            ? styles.diffViewBgLight
-            : styles.diffViewBgDark
-        )}
+        className={cn(styles.diffView)}
+        style={
+          useSolidBackground
+            ? { backgroundColor }
+            : {
+                backgroundImage: `linear-gradient(${backgroundGradiant.direction}, ${backgroundGradiant.from} ${backgroundGradiant.fromPosition}%, ${backgroundGradiant.via} ${backgroundGradiant.viaPosition}%, ${backgroundGradiant.to} ${backgroundGradiant.toPosition}%)`,
+              }
+        }
       >
         <div
           className={styles.diffViewerContainer}
