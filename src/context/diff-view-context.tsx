@@ -1,16 +1,8 @@
+import { DragEndEvent } from "@dnd-kit/core";
 import { TextInput } from "@mantine/core";
 import { createContext, useState } from "react";
 import { DiffMethod, ReactDiffViewerStylesOverride } from "react-diff-viewer";
 
-export type BackgroundGradiant = {
-  direction: string;
-  from: string;
-  fromPosition: number;
-  via: string;
-  viaPosition: number;
-  to: string;
-  toPosition: number;
-};
 export const DiffViewContext = createContext({
   editorSplitView: true,
   toggleSplitView: () => {},
@@ -29,23 +21,9 @@ export const DiffViewContext = createContext({
   diffAlgorithm: DiffMethod.WORDS,
   setDiffAlgorithm: (method: DiffMethod) => {},
 
-  backgroundGradiant: {
-    direction: "225deg",
-    from: "#ff3cac",
-    fromPosition: 0,
-    via: "#784ba0",
-    viaPosition: 50,
-    to: "#2b86c5",
-    toPosition: 100,
-  },
-
-  setBackgroundGradiant: (newBackground: BackgroundGradiant) => {},
-
-  useSolidBackground: false,
-  toggleUseSolidBackground: () => {},
-
-  backgroundColor: "#339af0",
-  setBackgroundColor: (newBackground: string) => {},
+  diffViewPositionX: 0,
+  diffViewPositionY: 0,
+  handleDiffViewDragEnd: (event: DragEndEvent) => {},
 });
 
 export const DiffViewContextProvider = ({
@@ -61,24 +39,17 @@ export const DiffViewContextProvider = ({
   const [diffAlgorithm, setDiffAlgorithm] = useState<DiffMethod>(
     DiffMethod.WORDS
   );
+  const [diffViewPositionX, setdiffViewPositionX] = useState(0);
+  const [diffViewPositionY, setdiffViewPositionY] = useState(0);
 
-  const [useSolidBackground, setUseSolidBackground] = useState<boolean>(false);
-  const [backgroundColor, setBackgroundColor] = useState<string>("#339af0");
-
-  const [backgroundGradiant, setBackgroundGradiant] =
-    useState<BackgroundGradiant>({
-      direction: "225deg",
-      from: "#ff3cac",
-      fromPosition: 0,
-      via: "#784ba0",
-      viaPosition: 50,
-      to: "#2b86c5",
-      toPosition: 100,
-    });
-
-  const toggleUseSolidBackground = () => {
-    setUseSolidBackground(!useSolidBackground);
-  };
+  function handleDiffViewDragEnd(event: DragEndEvent) {
+    setdiffViewPositionX(
+      (currentPosition) => (currentPosition += event.delta.x)
+    );
+    setdiffViewPositionY(
+      (currentPosition) => (currentPosition += event.delta.y)
+    );
+  }
 
   const toggleSplitView = () => {
     setEditorSplitView(!editorSplitView);
@@ -169,12 +140,9 @@ export const DiffViewContextProvider = ({
     toggleDnd,
     diffAlgorithm,
     setDiffAlgorithm,
-    backgroundGradiant,
-    setBackgroundGradiant,
-    backgroundColor,
-    setBackgroundColor,
-    useSolidBackground,
-    toggleUseSolidBackground,
+    diffViewPositionX,
+    diffViewPositionY,
+    handleDiffViewDragEnd,
   };
 
   return (

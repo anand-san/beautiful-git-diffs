@@ -4,7 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { ColorSchemeScript } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "./globals.css";
-import AppContext from "@/context/app-context";
+import RootAppContext from "@/context/app-context";
 
 const roboto = Roboto({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -56,7 +56,7 @@ export default function RootLayout({
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body className={roboto.className}>
-        <AppContext>{children}</AppContext>
+        <RootAppContext>{children}</RootAppContext>
         <Analytics />
       </body>
     </html>

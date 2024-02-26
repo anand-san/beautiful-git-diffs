@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.diffView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 480px;
+  min-width: 720px;
+  /* width: 880px; */
+  resize: both;
+  overflow: auto;
+  border-radius: 8px;
+  user-select: none;
+  cursor: pointer;
+  padding: 24px;
+  padding-bottom: 20px;
+}
