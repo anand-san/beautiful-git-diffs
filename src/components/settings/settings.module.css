@@ -1,23 +1,23 @@
-.container {
-  /* height: 100%; */
-  display: flex;
-  margin-top: 30px;
-  /* justify-content: center; */
-  /* align-items: center; */
+.drawer {
+  height: 100%;
+  overflow: none;
+}
+
+.drawerContent {
+  width: 100%;
+  margin-top: 20px;
 }
 
 .drawerTitle {
   padding: 8px;
+  padding-bottom: 0;
 }
 
-.drawerBody {
+.commonSettings {
+  display: flex;
+  flex-direction: column;
   padding: 14px;
   width: 100%;
-}
-
-.diffViewerOptions > * {
-  margin-top: 12px;
-  margin-bottom: 12px;
 }
 
 .blockquote {
@@ -27,15 +27,9 @@
   margin-bottom: 24px;
 }
 
-.gradiantPicker {
+.colors {
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* align-items: center; */
-  margin-top: 12px;
-}
-
-.gradiantPickerOption > * {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  gap: 8px;
 }

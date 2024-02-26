@@ -33,9 +33,6 @@ export default function DiffView({
     diffViewStyles,
     dndEnabled,
     diffAlgorithm,
-    useSolidBackground,
-    backgroundColor,
-    backgroundGradiant,
   } = useContext(DiffViewContext);
 
   const highlightSyntax = (str: string) => (
@@ -58,17 +55,13 @@ export default function DiffView({
     setIsMounted(true);
   }, []);
 
-  const { setNodeRef: droppableRef } = useDroppable({
-    id: "diff-view-container",
-  });
-
   const {
     attributes,
     listeners,
     setNodeRef: draggableRef,
     transform,
   } = useDraggable({
-    id: "diff-viewer",
+    id: "code-diff",
     disabled: !dndEnabled,
   });
 
@@ -81,39 +74,25 @@ export default function DiffView({
   if (!isMounted) return <></>;
 
   return (
-    <div className={styles.container} ref={droppableRef}>
-      <div
-        id="diff-view"
-        className={cn(styles.diffView)}
-        style={
-          useSolidBackground
-            ? { backgroundColor }
-            : {
-                backgroundImage: `linear-gradient(${backgroundGradiant.direction}, ${backgroundGradiant.from} ${backgroundGradiant.fromPosition}%, ${backgroundGradiant.via} ${backgroundGradiant.viaPosition}%, ${backgroundGradiant.to} ${backgroundGradiant.toPosition}%)`,
-              }
-        }
-      >
-        <div
-          className={styles.diffViewerContainer}
-          ref={draggableRef}
-          {...attributes}
-          {...listeners}
-          style={{ ...style, ...customStyles, ...resizeStyles }}
-        >
-          <ReactDiffViewer
-            styles={diffViewStyles}
-            oldValue={sourceCode}
-            newValue={targetCode}
-            splitView={editorSplitView}
-            useDarkTheme={currentTheme === "dark"}
-            leftTitle={showEditorHeader ? leftHeadingBar : undefined}
-            rightTitle={showEditorHeader ? rightHeadingBar : undefined}
-            renderContent={highlightSyntax}
-            disableWordDiff={false}
-            compareMethod={diffAlgorithm}
-          />
-        </div>
-      </div>
+    <div
+      className={styles.diffViewerContainer}
+      ref={draggableRef}
+      {...attributes}
+      {...listeners}
+      style={{ ...style, ...customStyles, ...resizeStyles }}
+    >
+      <ReactDiffViewer
+        styles={diffViewStyles}
+        oldValue={sourceCode}
+        newValue={targetCode}
+        splitView={editorSplitView}
+        useDarkTheme={currentTheme === "dark"}
+        leftTitle={showEditorHeader ? leftHeadingBar : undefined}
+        rightTitle={showEditorHeader ? rightHeadingBar : undefined}
+        renderContent={highlightSyntax}
+        disableWordDiff={false}
+        compareMethod={diffAlgorithm}
+      />
     </div>
   );
 }
