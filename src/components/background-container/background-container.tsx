@@ -3,6 +3,7 @@ import styles from "./background-container.module.css";
 import { cn } from "@/lib/utils";
 import { useDroppable } from "@dnd-kit/core";
 import { BackgroundContext } from "@/context/background-context";
+import { RootAppContext } from "@/context/app-context";
 
 export default function BackgroundContainer({
   children,
@@ -11,9 +12,10 @@ export default function BackgroundContainer({
 }) {
   const { useSolidBackground, backgroundColor, backgroundGradiant } =
     useContext(BackgroundContext);
+  const { activeElement } = useContext(RootAppContext);
 
   const { setNodeRef: droppableRef } = useDroppable({
-    id: "diff-view-container",
+    id: activeElement.value,
   });
 
   return (
