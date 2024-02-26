@@ -61,7 +61,7 @@ export default function DiffView({
     setNodeRef: draggableRef,
     transform,
   } = useDraggable({
-    id: "diff-viewer",
+    id: "code-diff",
     disabled: !dndEnabled,
   });
 

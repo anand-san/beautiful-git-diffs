@@ -9,43 +9,65 @@ import BackgroundContainer from "@/components/background-container/background-co
 import { SegmentedControl } from "@mantine/core";
 import ScreenshotView from "@/components/screenshot-view/screenshot-view";
 import { RootAppContext } from "@/context/app-context";
+import { DiffViewContext } from "@/context/diff-view-context";
+import { ScreenshotViewContext } from "@/context/screenshot-context";
 
 export default function Home() {
-  const [positionX, setPositionX] = React.useState(0);
-  const [positionY, setPositionY] = React.useState(0);
   const { activeElement, VIEW_TYPES, setActiveElement } =
     useContext(RootAppContext);
-  function handleDragEnd(event: DragEndEvent) {
-    setPositionX((currentPosition) => (currentPosition += event.delta.x));
-    setPositionY((currentPosition) => (currentPosition += event.delta.y));
-  }
+  const { diffViewPositionX, diffViewPositionY, handleDiffViewDragEnd } =
+    useContext(DiffViewContext);
+
+  const {
+    screenshotViewPositionX,
+    screenshotViewPositionY,
+    handleScreenshotViewDragEnd,
+  } = useContext(ScreenshotViewContext);
 
   const renderElement = () => {
     switch (activeElement.value) {
-      case "Screenshot":
-        return <ScreenshotView />;
-      case "Code Diff":
+      case "screenshot":
         return (
-          <DiffView
+          <ScreenshotView
             customStyles={{
-              left: positionX,
-              top: positionY,
+              left: screenshotViewPositionX,
+              top: screenshotViewPositionY,
             }}
           />
         );
-      case "Terminal":
+      case "code-diff":
+        return (
+          <DiffView
+            customStyles={{
+              left: diffViewPositionX,
+              top: diffViewPositionY,
+            }}
+          />
+        );
+      case "terminal":
         return "Terminal element";
       default:
         return (
           <DiffView
             customStyles={{
-              left: positionX,
-              top: positionY,
+              left: diffViewPositionX,
+              top: diffViewPositionY,
             }}
           />
         );
     }
   };
+
+  const handleElementDragEnd = useCallback(() => {
+    switch (activeElement.value) {
+      case "code-diff":
+        return handleDiffViewDragEnd;
+      case "screenshot":
+        return handleScreenshotViewDragEnd;
+      default:
+        return;
+    }
+  }, [activeElement.value, handleDiffViewDragEnd, handleScreenshotViewDragEnd]);
 
   return (
     <main className={styles.container}>
@@ -58,7 +80,7 @@ export default function Home() {
       />
       <DndContext
         modifiers={[restrictToParentElement]}
-        onDragEnd={handleDragEnd}
+        onDragEnd={handleElementDragEnd()}
       >
         <BackgroundContainer>{renderElement()}</BackgroundContainer>
       </DndContext>

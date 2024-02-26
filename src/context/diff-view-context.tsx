@@ -1,3 +1,4 @@
+import { DragEndEvent } from "@dnd-kit/core";
 import { TextInput } from "@mantine/core";
 import { createContext, useState } from "react";
 import { DiffMethod, ReactDiffViewerStylesOverride } from "react-diff-viewer";
@@ -19,6 +20,10 @@ export const DiffViewContext = createContext({
 
   diffAlgorithm: DiffMethod.WORDS,
   setDiffAlgorithm: (method: DiffMethod) => {},
+
+  diffViewPositionX: 0,
+  diffViewPositionY: 0,
+  handleDiffViewDragEnd: (event: DragEndEvent) => {},
 });
 
 export const DiffViewContextProvider = ({
@@ -34,6 +39,17 @@ export const DiffViewContextProvider = ({
   const [diffAlgorithm, setDiffAlgorithm] = useState<DiffMethod>(
     DiffMethod.WORDS
   );
+  const [diffViewPositionX, setdiffViewPositionX] = useState(0);
+  const [diffViewPositionY, setdiffViewPositionY] = useState(0);
+
+  function handleDiffViewDragEnd(event: DragEndEvent) {
+    setdiffViewPositionX(
+      (currentPosition) => (currentPosition += event.delta.x)
+    );
+    setdiffViewPositionY(
+      (currentPosition) => (currentPosition += event.delta.y)
+    );
+  }
 
   const toggleSplitView = () => {
     setEditorSplitView(!editorSplitView);
@@ -124,6 +140,9 @@ export const DiffViewContextProvider = ({
     toggleDnd,
     diffAlgorithm,
     setDiffAlgorithm,
+    diffViewPositionX,
+    diffViewPositionY,
+    handleDiffViewDragEnd,
   };
 
   return (

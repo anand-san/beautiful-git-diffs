@@ -8,17 +8,17 @@ import { ScreenshotViewContextProvider } from "./screenshot-context";
 
 const VIEW_TYPES = [
   {
-    value: "Screenshot",
+    value: "screenshot",
     label: "Screenshot",
     disabled: false,
   },
   {
-    value: "Code Diff",
+    value: "code-diff",
     label: "Code Diff",
     disabled: false,
   },
   {
-    value: "Terminal",
+    value: "terminal",
     label: "Terminal",
     disabled: true,
   },
@@ -26,7 +26,7 @@ const VIEW_TYPES = [
 
 export const RootAppContext = createContext({
   activeElement: {
-    value: "Screenshot",
+    value: "screenshot",
     label: "Screenshot",
     disabled: false,
   },
@@ -42,7 +42,7 @@ export default function RootAppContextProvider({
   const [activeElement, setActiveElement] = React.useState<
     (typeof VIEW_TYPES)[0]
   >({
-    value: "Screenshot",
+    value: "screenshot",
     label: "Screenshot",
     disabled: false,
   });
