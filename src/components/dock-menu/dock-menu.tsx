@@ -7,6 +7,7 @@ import {
   IconSun,
   IconMoon,
   IconLogin2,
+  IconLogout2,
 } from "@tabler/icons-react";
 
 import React, { useContext } from "react";
@@ -22,6 +23,8 @@ import {
   useMantineColorScheme,
 } from "@mantine/core";
 import { Settings } from "../settings/settings";
+import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
 interface DockMenuProps {
   position?: "top" | "bottom";
@@ -30,6 +33,7 @@ interface DockMenuProps {
 export default function DockMenu({}: DockMenuProps) {
   const { toggleColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme();
+  const { user } = useKindeBrowserClient();
 
   const [isMounted, setIsMounted] = React.useState(false);
 
@@ -96,11 +100,19 @@ export default function DockMenu({}: DockMenuProps) {
 
         <div className={styles.navSeparator}></div>
 
-        <Tooltip position="top" offset={12} label="Login">
-          <Link className={styles.navElement} href={"/login"}>
-            <IconLogin2 className={styles.navIcon} />
-          </Link>
-        </Tooltip>
+        {!user ? (
+          <Tooltip position="top" offset={12} label="Login">
+            <LoginLink className={styles.navElement}>
+              <IconLogin2 className={styles.navIcon} />
+            </LoginLink>
+          </Tooltip>
+        ) : (
+          <Tooltip position="top" offset={12} label="Logout">
+            <LogoutLink className={styles.navElement}>
+              <IconLogout2 className={styles.navIcon} />
+            </LogoutLink>
+          </Tooltip>
+        )}
 
         <Tooltip position="top" offset={12} label="Toggle Theme">
           <UnstyledButton
