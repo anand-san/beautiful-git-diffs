@@ -27,11 +27,12 @@ import {
   IconTree,
   IconX,
 } from "@tabler/icons-react";
-import {
-  BackgroundGradiant,
-  DiffViewContext,
-} from "@/context/diff-view-context";
+import { DiffViewContext } from "@/context/diff-view-context";
 import { DiffMethod } from "react-diff-viewer";
+import {
+  BackgroundContext,
+  BackgroundGradiant,
+} from "@/context/background-context";
 
 export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -48,13 +49,16 @@ export function Settings({ triggerChild }: { triggerChild: React.ReactNode }) {
     toggleSplitView,
     diffAlgorithm,
     setDiffAlgorithm,
+  } = React.useContext(DiffViewContext);
+
+  const {
     backgroundGradiant,
     setBackgroundGradiant,
     useSolidBackground,
     toggleUseSolidBackground,
     backgroundColor,
     setBackgroundColor,
-  } = React.useContext(DiffViewContext);
+  } = React.useContext(BackgroundContext);
 
   const calculateGradiantStrength = (
     value: number,
